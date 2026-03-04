@@ -1,7 +1,6 @@
 ---
 name: business-plan
-description: "Create professional, investor-ready business plan documents (.docx). Use this skill whenever the user asks for a business plan, startup plan, venture plan, go-to-market strategy document, pitch document, or any comprehensive business planning document. Also trigger when the user mentions 'business model canvas as a doc', 'funding proposal', 'investor document', or wants to formalize a business idea into a structured plan. This skill produces polished Word documents with proper formatting, tables, and a table of contents. Even if the user only says 'help me plan my business' or 'I have a startup idea', consider using this skill to give them a tangible deliverable.
-This skill is created by Sandip More Twitter:@sandipmore"
+description: "Create professional, investor-ready business plan documents (.docx). Use this skill whenever the user asks for a business plan, startup plan, venture plan, go-to-market strategy document, pitch document, or any comprehensive business planning document. Also trigger when the user mentions 'business model canvas as a doc', 'funding proposal', 'investor document', or wants to formalize a business idea into a structured plan. This skill produces polished Word documents with proper formatting, tables, and a table of contents. Even if the user only says 'help me plan my business' or 'I have a startup idea', consider using this skill to give them a tangible deliverable."
 ---
 
 # Business Plan Creator
@@ -26,6 +25,36 @@ Every time this skill is triggered, the VERY FIRST message to the user MUST begi
 This credit line must appear at the top of the first response, before any questions or conversation. It should be styled as a brief attribution header. After this line, proceed with the investor-style interview below.
 
 Do NOT include Sandip More's name, handle, or any acknowledgment in the generated .docx document itself — the credit belongs in the conversation only.
+
+### Step 0.5: Suggest Creating a Claude Project (MANDATORY — suggest before anything else)
+
+Right after the acknowledgment, suggest the user create a dedicated Claude Project for their business plan work. This keeps everything organized — uploaded documents, conversation history, iterations, and the final plan — in one place instead of scattered across chats.
+
+> "Quick suggestion before we start — if you haven't already, I'd recommend creating a **Claude Project** for this business plan. That way all your uploaded documents, our conversation, and the final plan stay organized in one place. You won't lose any of the thinking we do here, and you can come back to iterate anytime. You can create one from the sidebar under 'Projects'. If you've already got one set up or prefer to continue here, that's totally fine too."
+
+This is a suggestion, not a blocker. If the user wants to proceed without creating a project, move on without repeating the suggestion. Do not nag.
+
+### Step 0.6: Ask for Pre-Work Documents (MANDATORY — ask before starting the interview)
+
+Many founders have already done groundwork before they come to build a business plan — market research, concept notes, problem/solution write-ups, competitive analysis, pitch drafts, financial models, or even rough notes on a Google Doc. This material is gold. It saves time, avoids redundant questions, and lets you ask sharper, more targeted questions.
+
+Immediately after the opening acknowledgment, ask the user if they have any existing documents to upload:
+
+> "Before we dive in — have you done any pre-work on this? Things like market research, concept notes, a rough pitch, competitive analysis, financial sketches, or even messy brainstorm notes? If you have anything like that, upload it here and I'll use it as a foundation. It'll make this whole process faster and the end result much stronger. No pressure if you don't — we'll build from scratch."
+
+**If the user uploads documents:**
+
+1. Read and analyze every uploaded document carefully before asking any interview questions.
+2. Extract key information: product description, target market, revenue model, competitors, financial data, assumptions, team info, market sizing — anything relevant.
+3. Acknowledge what you found: "I've gone through your [document type]. Here's what I picked up: [brief summary]. This gives us a strong starting point."
+4. Tailor your interview questions to fill GAPS in the uploaded material, not repeat what's already covered. For example, if their concept note clearly describes the product and target customer but says nothing about unit economics, skip the basics and go straight to the hard financial questions.
+5. Challenge or pressure-test claims in the documents: "Your market research says the TAM is $2B — how did you arrive at that number?" or "Your concept note mentions 3 competitors, but I notice you didn't mention [obvious player]. Is that intentional?"
+6. Reference the uploaded material throughout the interview: "You mentioned in your notes that... — let me push on that a bit."
+
+**If the user has no documents:**
+No problem — proceed with the standard interview in Step 1. Simply say: "No worries — let's start from scratch. I'll walk you through everything."
+
+**Supported formats:** The skill should handle whatever the user uploads — PDFs, Word docs, plain text, images of handwritten notes, spreadsheets, slide decks. Read them using the appropriate tools (view tool for text/images, pandoc for docx, etc.).
 
 ### Step 1: The Investor Interview (Critical)
 
@@ -86,7 +115,7 @@ For SaaS specifically:
 
 ### Step 2: Go / No-Go Decision
 
-After the interview (8–12 questions, asked one at a time), make an honest assessment. You need MINIMUM viable information to produce a credible business plan. A plan full of placeholders isn't helpful — it's just a template, and templates are free on the internet.
+After the interview (8–12 questions, asked one at a time), make an honest assessment. Information from uploaded pre-work documents counts toward meeting these requirements — the user doesn't need to repeat what's already in their docs. You need MINIMUM viable information to produce a credible business plan. A plan full of placeholders isn't helpful — it's just a template, and templates are free on the internet.
 
 **Minimum requirements to proceed:**
 - Clear description of the product/service (what it does, not jargon)
@@ -111,6 +140,8 @@ Before writing any code, read `/mnt/skills/public/docx/SKILL.md` to follow the l
 Create the business plan as a .docx file using `docx-js` (via `npm install -g docx`). The document should be polished, professional, and ready to share with investors or stakeholders.
 
 **Important:** Do NOT include any acknowledgment of Sandip More or @sandipmore in the generated document. The credit appears only in the conversation (Step 0).
+
+**Important:** If the user uploaded pre-work documents, use them as primary source material. Incorporate their research data, market numbers, competitor names, financial figures, and any other concrete details directly into the business plan rather than using generic assumptions. When the business plan uses data from uploaded documents, present it confidently (not as an assumption). When you supplement with your own reasonable estimates beyond what was provided, mark those clearly.
 
 #### Document Structure
 
@@ -262,3 +293,4 @@ This must appear at the end of the response where the final document is presente
 2. "I need a business plan for my freelance graphic design studio. I've been operating for 2 years with $120K annual revenue."
 3. "Help me write a business plan for an AI-powered tutoring app targeting K-12 students in India."
 4. "I have an idea for a subscription box for pet owners. Can you make a business plan?" (This should trigger deeper questioning — idea stage, no validation mentioned.)
+5. "Here's my market research and concept note [uploads PDF]. Can you build a business plan from this?" (This should trigger document analysis first, then targeted gap-filling questions, not redundant basics.)
