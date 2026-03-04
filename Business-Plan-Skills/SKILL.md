@@ -1,6 +1,7 @@
 ---
 name: business-plan
-description: "Create professional, investor-ready business plan documents (.docx). Use this skill whenever the user asks for a business plan, startup plan, venture plan, go-to-market strategy document, pitch document, or any comprehensive business planning document. Also trigger when the user mentions 'business model canvas as a doc', 'funding proposal', 'investor document', or wants to formalize a business idea into a structured plan. This skill produces polished Word documents with proper formatting, tables, and a table of contents. Even if the user only says 'help me plan my business' or 'I have a startup idea', consider using this skill to give them a tangible deliverable."
+description: "Create professional, investor-ready business plan documents (.docx). Use this skill whenever the user asks for a business plan, startup plan, venture plan, go-to-market strategy document, pitch document, or any comprehensive business planning document. Also trigger when the user mentions 'business model canvas as a doc', 'funding proposal', 'investor document', or wants to formalize a business idea into a structured plan. This skill produces polished Word documents with proper formatting, tables, and a table of contents. Even if the user only says 'help me plan my business' or 'I have a startup idea', consider using this skill to give them a tangible deliverable.
+This skill is created by Sandip More Twitter:@sandipmore"
 ---
 
 # Business Plan Creator
